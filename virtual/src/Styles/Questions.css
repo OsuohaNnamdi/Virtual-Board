@@ -1,0 +1,175 @@
+.question-details-page {
+    padding: 20px;
+}
+
+.question-details-container {
+    margin-bottom: 30px;
+}
+
+.question-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.question-details-content {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.question-votes {
+    text-align: center;
+    margin-right: 20px;
+}
+
+.votes-icon {
+    cursor: pointer;
+    width: 20px;
+}
+
+.vote-count {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.question-body {
+    margin-bottom: 15px;
+}
+
+.question-actions-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question-actions {
+    display: flex;
+}
+
+.action-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #0056b3;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.question-meta, .answer-meta {
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.user-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.answers-section {
+    margin-bottom: 30px;
+}
+
+.answer-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.answer-content {
+    flex: 1;
+}
+
+.answer-text {
+    margin-bottom: 15px;
+}
+
+.answer-actions {
+    margin-bottom: 10px;
+}
+
+.answer-user-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.comments-section {
+    margin-bottom: 15px;
+}
+
+.toggle-comments {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.toggle-comments:hover {
+    background-color: #0056b3;
+}
+
+.comment-form {
+    display: flex;
+}
+
+.comment-form input {
+    flex: 1;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.comment-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.comment-form button:hover {
+    background-color: #0056b3;
+}
+
+.post-answer-section {
+    margin-bottom: 30px;
+}
+
+.post-answer-section textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.submit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
