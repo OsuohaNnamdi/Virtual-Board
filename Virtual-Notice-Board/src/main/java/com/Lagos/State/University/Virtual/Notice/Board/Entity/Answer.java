@@ -10,13 +10,13 @@ import java.time.LocalDate;
 public class Answer {
     @Id
     @SequenceGenerator(
-            name = "answers_sequence",
-            sequenceName = "answers_sequence",
+            name = "answer_sequence",
+            sequenceName = "answer_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "answers_sequence")
+            generator = "answer_sequence")
     private Long id;
 
     @Column(nullable = false)

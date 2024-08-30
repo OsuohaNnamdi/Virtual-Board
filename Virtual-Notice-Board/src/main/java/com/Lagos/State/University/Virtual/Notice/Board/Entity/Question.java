@@ -7,18 +7,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "question")
+@Table(name = "questions")
 public class Question {
 
     @Id
     @SequenceGenerator(
             name = "question_sequence",
-            sequenceName = "question_sequence",
+            sequenceName = "questions_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "question_sequence")
+            generator = "questions_sequence")
     private Long id;
 
     @Column(nullable = false)

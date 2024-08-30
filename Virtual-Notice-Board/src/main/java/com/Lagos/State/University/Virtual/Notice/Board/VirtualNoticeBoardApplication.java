@@ -16,26 +16,6 @@ public class VirtualNoticeBoardApplication {
 		SpringApplication.run(VirtualNoticeBoardApplication.class, args);
 	}
 
-	/*@Bean
-	CommandLineRunner runner (ProfileRepository repository, PasswordEncoder passwordEncoder){
-
-		return args -> {
-
-			Profile profile = new Profile();
-
-			profile.setFirstName("Abdul Jalal");
-			profile.setLastName("Ahmeed");
-			profile.setSet( "2020/2021");
-			profile.setMatricNumber("200591016");
-			profile.setDepartment("Department of Computer Science");
-			profile.setFaculty("Faculty of Science");
-			profile.setPassword(passwordEncoder.encode("12345"));
-			profile.setType(AccountType.STUDENT);
-
-			repository.save(profile);
-
-			
-		};
-	}*/
+	
 
 }

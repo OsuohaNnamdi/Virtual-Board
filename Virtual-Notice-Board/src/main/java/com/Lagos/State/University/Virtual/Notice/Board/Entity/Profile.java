@@ -12,17 +12,17 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "profile")
+@Table(name = "students")
 public class Profile implements UserDetails {
     @Id
     @SequenceGenerator(
-            name = "Student_sequence",
-            sequenceName = "Student_sequence",
+            name = "students_sequence",
+            sequenceName = "students_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "Student_sequence")
+            generator = "students_sequence")
     private Long id;
     private String firstName;
     private String lastName;

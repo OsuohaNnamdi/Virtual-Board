@@ -56,6 +56,8 @@ public class ProfileImplementation implements ProfileService {
             profile.setLastName(request.getLastName());
             profile.setPassword(passwordEncoder.encode(request.getPassword()));
             profile.setMatricNumber(request.getMatricNumber());
+            profile.setFaculty(request.getFaculty());
+            profile.setDepartment(request.getDepartment());
             profile.setSet(request.getSet());
             if (request.getVerified() == null || request.getVerified().equals(false)){
                 profile.setVerified(false);
