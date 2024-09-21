@@ -19,9 +19,15 @@ public class CommentController {
     }
 
     @GetMapping("/list/{id}")
-    public List<Comment> getAnswerById (@PathVariable Long request){
+    public List<Comment> getAnswerById(@PathVariable("id") Long id) {
+        return commentImplementation.getByAnswerId(id);
+    }
 
-        return commentImplementation.getByAnswerId(request);
+
+    @GetMapping("/list")
+    public List<Comment> getAnswer (){
+
+        return commentImplementation.getAllComment();
     }
 
     @PostMapping("/add")
@@ -58,4 +64,13 @@ public class CommentController {
         return ResponseEntity.ok()
                 .build();
     }
+
+    /*@DeleteMapping("/delete")
+    public ResponseEntity <?> deleteAllComment()
+    {
+        commentImplementation.deleteAll();
+
+        return ResponseEntity.ok()
+                .build();
+    }*/
 }

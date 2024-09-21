@@ -22,11 +22,10 @@ public interface GeneralService {
 
     Dashboard getNoticeById (Long id) throws GeneralException;
 
-    void updateNotice (Long id , Dashboard request , MultipartFile image ) throws GeneralException;
+    void updateNotice (Long id , Dashboard request ) throws GeneralException;
 
     void deleteNotice (Long id) throws GeneralException;
 
 
-    
-
+    void createDashboard(Dashboard request);
 }

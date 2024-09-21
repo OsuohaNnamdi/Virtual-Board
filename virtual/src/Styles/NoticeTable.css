@@ -49,3 +49,53 @@
 .notice-table button:last-child:hover {
     background-color: #e53935;
 }
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .notice-table-container {
+        padding: 10px; /* Reduce padding for mobile */
+    }
+
+    .notice-table {
+        width: 100%;
+        font-size: 12px; /* Smaller font size */
+    }
+
+    .notice-table th, .notice-table td {
+        padding: 5px; /* Reduce padding */
+    }
+
+    .notice-table th {
+        font-size: 14px; /* Smaller header text */
+    }
+
+    .notice-table td {
+        font-size: 12px; /* Smaller body text */
+    }
+
+    .notice-table button {
+        padding: 4px 8px; /* Smaller buttons */
+        font-size: 12px; /* Reduce button text size */
+    }
+
+    .notice-table tr {
+        display: block; /* Stack table rows */
+        margin-bottom: 10px;
+    }
+
+    .notice-table td {
+        display: block; /* Stack table cells */
+        width: 100%;
+        text-align: right;
+    }
+
+    .notice-table td:before {
+        content: attr(data-label); /* Display labels for table cells */
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .notice-table th {
+        display: none; /* Hide table headers on mobile */
+    }
+}

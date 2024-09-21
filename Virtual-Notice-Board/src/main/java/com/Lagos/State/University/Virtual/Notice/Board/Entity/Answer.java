@@ -3,6 +3,7 @@ package com.Lagos.State.University.Virtual.Notice.Board.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -28,7 +29,7 @@ public class Answer {
 
     private Long questionId;
 
-    private LocalDate date;
+    private LocalDateTime date;
     private int upVotes;
 
     private Integer downVotes;
@@ -38,7 +39,7 @@ public class Answer {
     public Answer() {
     }
 
-    public Answer(Long id, String content, String firstName, String lastName, Long questionId, LocalDate date, int upVotes, Integer downVotes) {
+    public Answer(Long id, String content, String firstName, String lastName, Long questionId, LocalDateTime date, int upVotes, Integer downVotes) {
         this.id = id;
         this.content = content;
         this.firstName = firstName;
@@ -105,11 +106,11 @@ public class Answer {
         this.id = id;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }

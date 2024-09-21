@@ -17,15 +17,18 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/login', {
+            const response = await axios.post('https://virtual-notice-board-api.onrender.com/api/v1/login', {
                 matricNumber,
                 password
             
             });
+
+            
     
             const { profileDTO, token } = response.data;
             const { Type, matricNumber: responseMatricNumber } = profileDTO;
 
+            
             showAlert("Login Successful", "You have successfully logged in.", "success"); 
     
             switch (Type) {

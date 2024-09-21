@@ -24,6 +24,7 @@ function Department() {
                 try {
                     const response = await axiosInstance.get(`/dashboard/department/list/${profile.department}`);
                     setNews(response.data);
+                    console.log(response)
                 } catch (error) {
                     console.error("Error fetching department news:", error);
                 }

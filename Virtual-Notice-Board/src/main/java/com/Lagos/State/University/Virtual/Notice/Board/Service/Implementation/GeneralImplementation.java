@@ -72,6 +72,8 @@ public class GeneralImplementation implements GeneralService {
 
     }
 
+
+
     @Override
     public Dashboard getNoticeById(Long id) throws GeneralException {
 
@@ -101,7 +103,7 @@ public class GeneralImplementation implements GeneralService {
     }
 
     @Override
-    public void updateNotice(Long id, Dashboard request, MultipartFile image) throws GeneralException{
+    public void updateNotice(Long id, Dashboard request) throws GeneralException{
 
         Optional<Dashboard> optionalDashboard = dashboardRepository.findById(id);
 
@@ -109,14 +111,11 @@ public class GeneralImplementation implements GeneralService {
 
         if (optionalDashboard.isPresent()) {
 
+            
             Dashboard dashboard = optionalDashboard.get();
             dashboard.setSubject(request.getSubject());
             dashboard.setSource(request.getSource());
             dashboard.setContent(request.getContent());
-            if (image != null){
-                cloudinaryService.deleteImage(optionalDashboard.get().getImageUrl());
-                dashboard.setImageUrl(cloudinaryService.uploadImage(image));
-            }
             dashboard.setDate(LocalDate.now());
 
             dashboardRepository.save(dashboard);
@@ -138,6 +137,11 @@ public class GeneralImplementation implements GeneralService {
             throw new RuntimeException("Dashboard not found with id " + id);
         }
     }
+
+    @Override
+    public void createDashboard(Dashboard request) {
+        dashboardRepository.save(request);
     }
+}
 
 

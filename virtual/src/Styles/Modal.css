@@ -74,3 +74,28 @@
 .modal-actions button:last-child:hover {
     background-color: #e53935;
 }
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 15px;
+        max-width: 90%; /* Reduce modal width for mobile */
+    }
+
+    .modal-content form {
+        font-size: 14px; /* Smaller font size */
+    }
+
+    .modal-content input, .modal-content textarea {
+        padding: 8px; /* Adjust padding for inputs */
+        font-size: 14px;
+    }
+
+    .modal-actions {
+        justify-content: space-between; /* Space between buttons */
+    }
+
+    .modal-actions button {
+        padding: 8px 16px;
+        font-size: 14px; /* Smaller button size */
+    }
+}

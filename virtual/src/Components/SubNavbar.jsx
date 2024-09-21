@@ -3,7 +3,7 @@ import "../Styles/SubNavbar.css";
 
 function SubNavbar() {
 
-    const auth = localStorage.getItem("jwtToken");
+    const auth = localStorage.getItem("TYPES");
 
     return (
         <div className="sub-navbar">

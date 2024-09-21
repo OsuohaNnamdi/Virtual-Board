@@ -12,4 +12,6 @@ public interface ProfileService {
     void addStudent (Profile profile) throws ProfileException;
 
     LoginResponse login(LoginRequest request) throws ProfileException;
+
+    void deleteById(Long id);
 }

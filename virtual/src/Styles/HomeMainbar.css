@@ -116,3 +116,52 @@ body {
     font-size: 13px;
     color: #999999;
 }
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .main-bar {
+        width: 90%;  /* Make the main bar wider on mobile */
+        margin: 15px auto;  /* Adjust margin for mobile */
+        padding: 15px;  /* Reduce padding */
+    }
+
+    .main-bar-header {
+        flex-direction: column;  /* Stack items vertically */
+        align-items: flex-start;  /* Align items to the start */
+    }
+
+    .main-bar-header h1 {
+        font-size: 24px;  /* Adjust font size for header */
+        margin-bottom: 10px;  /* Space between title and button */
+    }
+
+    .main-bar-header .ask-btn {
+        width: 100%;  /* Make button full width */
+        padding: 12px;  /* Increase padding */
+    }
+
+    .questions-container {
+        padding: 10px;  /* Add some padding */
+    }
+
+    .display-question-container {
+        flex-direction: column;  /* Stack items in question container */
+        padding: 8px;  /* Reduce padding */
+    }
+
+    .display-votes-ans {
+        padding: 10px;  /* Adjust padding for votes and answers */
+    }
+
+    .question-title-link {
+        font-size: 16px;  /* Adjust title font size */
+    }
+
+    .display-tags-time {
+        flex-direction: column;  /* Stack tags and time */
+        align-items: flex-start;  /* Align items to the start */
+    }
+
+    .display-tags-time .display-tags p {
+        margin: 5px 0;  /* Space tags vertically */
+    }
+}

@@ -67,7 +67,7 @@ public class GeneralController {
     }
 
         @PostMapping("/add")
-        public ResponseEntity<Dashboard> createDashboard(@ModelAttribute Dashboard request,
+        public ResponseEntity<Dashboard> createNotice(@ModelAttribute Dashboard request,
                                                          @RequestPart("document") MultipartFile document) {
             try {
                 generalImplementation.createNotice(request , document);
@@ -77,12 +77,21 @@ public class GeneralController {
             }
         }
 
+    @PostMapping("/adder")
+    public ResponseEntity<Dashboard> createDashboard(@RequestBody Dashboard request) {
+        try {
+            generalImplementation.createDashboard(request);
+            return ResponseEntity.ok().build();
+        } catch (GeneralException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
         @PutMapping("/update/{id}")
         public ResponseEntity<Dashboard> updateDashboard(@PathVariable Long id,
-                                                         @ModelAttribute Dashboard request,
-                                                         @RequestPart("document") MultipartFile document) {
+                                                         @ModelAttribute Dashboard request                                                      ) {
             try {
-                generalImplementation.updateNotice(id, request, document);
+                generalImplementation.updateNotice(id, request);
                 return ResponseEntity.ok()
                         .build();
 

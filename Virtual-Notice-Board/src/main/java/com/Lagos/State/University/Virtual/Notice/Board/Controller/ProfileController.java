@@ -37,4 +37,13 @@ public class ProfileController {
                 .body(response);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity <?> deleteProfile(@PathVariable Long id)
+    {
+        profileImplementation.deleteById(id);
+
+        return ResponseEntity.ok()
+                .build();
+    }
+
 }

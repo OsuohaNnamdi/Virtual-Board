@@ -10,6 +10,7 @@ import com.Lagos.State.University.Virtual.Notice.Board.Service.AnswerService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -55,10 +56,10 @@ public class AnswerImplementation implements AnswerService {
 
             Answer answer = new Answer();
 
-            answer.setFirstName(question.getProfile().getFirstName());
-            answer.setLastName(question.getProfile().getLastName());
+            answer.setFirstName(request.getFirstName());
+            answer.setLastName(request.getLastName());
             answer.setContent(request.getContent());
-            answer.setDate(LocalDate.now());
+            answer.setDate(LocalDateTime.now());
             answer.setQuestionId(question.getId());
             answer.setUpVotes(0);
             answer.setDownVotes(0);

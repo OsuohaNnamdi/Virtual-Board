@@ -64,11 +64,6 @@
 /* Responsive styles */
 @media (max-width: 600px) {
     .sub-navbar {
-        flex-direction: column;
-        padding: 10px 0;
-    }
-
-    .sub-nav-link {
-        margin: 10px 0;
+        display: none; /* Hide sub-navbar on mobile */
     }
 }

@@ -9,8 +9,6 @@ import '../Styles/Questions.css';
 import Avatar from '../Components/Avatar';
 import { showConfirmationAlert } from '../Components/showConfirmationAlert';
 
-
-
 const QuestionsDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -24,29 +22,27 @@ const QuestionsDetails = () => {
     const currentUser = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
-        const fetchQuestion = async () => {
+        const fetchQuestionAndAnswers = async () => {
             try {
-                const response = await axiosInstance.get(`/question/${id}`);
-                setQuestion(response.data);
-                setLoading(false);
+                const [questionResponse, answersResponse] = await Promise.all([
+                    axiosInstance.get(`/question/${id}`),
+                    axiosInstance.get(`/answer/list/${id}`)
+                ]);
+
+                setQuestion({
+                    ...questionResponse.data,
+                    answers: answersResponse.data,
+                    
+                });console.log(question)
+
             } catch (error) {
-                console.error('Error fetching question details:', error);
+                console.error('Error fetching question or answers:', error);
+            } finally {
                 setLoading(false);
             }
         };
 
-        const fetchAnswer = async () => {
-            try {
-                const response = await axiosInstance.get(`/answer/list/${id}`);
-                setQuestion(prev => ({ ...prev, answers: response.data }));
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error fetching answers:', error);
-            }
-        };
-
-        fetchAnswer();
-        fetchQuestion();
+        fetchQuestionAndAnswers();
     }, [id]);
 
     if (loading) {
@@ -68,20 +64,23 @@ const QuestionsDetails = () => {
             const newAnswer = {
                 content: answer,
                 questionId: parseInt(id),
+                firstName: currentUser.firstName,
+                lastName: currentUser.lastName
             };
-    
+
+            console.log(newAnswer)
+
             try {
                 await axiosInstance.post(`/answer/add`, newAnswer);
                 await showConfirmationAlert('Success', 'Answer posted successfully!', 'success');
-                setAnswer(''); // Clear the answer input after posting
-                // Optionally, fetch answers again or update state
+                setAnswer(''); 
             } catch (error) {
                 console.error('Error posting answer:', error);
                 await showConfirmationAlert('Error', 'There was an error posting your answer. Please try again.', 'error');
             }
         }
     };
-    
+
     const handlePostComment = async (answerId, e) => {
         e.preventDefault();
         if (!currentUser) {
@@ -96,7 +95,7 @@ const QuestionsDetails = () => {
                 lastName: currentUser.lastName,
                 answerId: answerId,
             };
-    
+
             try {
                 await axiosInstance.post(`/comment/add`, newComment);
                 setQuestion((prevQuestion) => ({
@@ -121,6 +120,7 @@ const QuestionsDetails = () => {
             }
         }
     };
+
     const handleShare = () => {
         const url = `http://localhost:3000${location.pathname}`;
         copy(url);
@@ -133,11 +133,11 @@ const QuestionsDetails = () => {
                 'Are you sure?',
                 'Do you really want to delete this question?',
                 'warning',
-                true, // Show cancel button
+                true, 
                 'Yes, delete it!',
                 'No, cancel!'
             );
-    
+
             if (result.isConfirmed) {
                 await axiosInstance.delete(`/question/delete/${id}`);
                 await showConfirmationAlert('Deleted!', 'Your question has been deleted.', 'success');
@@ -171,7 +171,26 @@ const QuestionsDetails = () => {
         }
     };
 
+    const fetchComments = async (answerId) => {
+        try {
+            const response = await axiosInstance.get(`/comment/list/${answerId}`);
+            setQuestion((prevQuestion) => ({
+                ...prevQuestion,
+                answers: prevQuestion.answers.map((ans) =>
+                    ans.id === answerId ? { ...ans, comments: response.data } : ans
+                ),
+            }));
+            console.log(response.data)
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+        }
+    };
+
     const toggleComments = (answerId) => {
+        if (!expandedComments[answerId]) {
+            fetchComments(answerId); // Fetch comments only if not expanded yet
+        }
+
         setExpandedComments((prevExpandedComments) => ({
             ...prevExpandedComments,
             [answerId]: !prevExpandedComments[answerId],
@@ -227,6 +246,14 @@ const QuestionsDetails = () => {
                     <h3>{question.answers.length} Answers</h3>
                     {question.answers.map((ans) => (
                         <div className='answer-card' key={ans.id}>
+                            <div className="answer-header">
+                                <Avatar backgroundColor="pink" px='8px' py='4px' borderRadius="4px">
+                                    {ans.lastName ? ans.lastName.charAt(0) : 'U'}
+                                </Avatar>
+                                <p className='answer-meta'>
+                                    {ans.firstName || 'Anonymous'} answered {moment(ans.date).fromNow()}
+                                </p>
+                            </div>
                             <div className="answer-votes">
                                 <img
                                     src={upvote}
@@ -245,80 +272,75 @@ const QuestionsDetails = () => {
                             <div className='answer-content'>
                                 <p className='answer-text'>{ans.content}</p>
                                 <div className="answer-actions">
-                                    {currentUser?.matricNumber === ans.matricNo && (
-                                        <button type='button' className='action-button'>Delete</button>
+                                    {currentUser?.matricNumber && (
+                                        <button
+                                            onClick={() => toggleComments(ans.id)}
+                                            className='comment-button'
+                                        >
+                                            {expandedComments[ans.id] ? 'Hide Comments' : 'Show Comments'}
+                                        </button>
                                     )}
                                 </div>
-                                <div className='answer-user-info'>
-                                    <div className='user-meta'>
-                                        <p className='answer-meta'>answered {moment(ans.date).fromNow()}</p>
-                                        <Link to={`/Users/${ans.matricNo}`} className='user-link'>
-                                            <Avatar backgroundColor="orange" px='8px' py='5px' borderRadius="4px">
-                                                {ans.firstName ? ans.firstName.charAt(0).toUpperCase() : ''}
-                                            </Avatar>
-                                            <span>{ans.lastName || 'Unknown User'}</span>
-                                        </Link>
-                                    </div>
-                                </div>
                             </div>
-                            {ans.comments && (
+                            {expandedComments[ans.id] && (
                                 <div className='comments-section'>
-                                    {expandedComments[ans.id] ? (
-                                        <>
-                                            {ans.comments.map((comment, index) => (
-                                                <p key={index}>
-                                                    <strong>{comment.firstName} {comment.lastName}: </strong>
-                                                    {comment.content}
-                                                </p>
-                                            ))}
-                                            <button type="button" onClick={() => toggleComments(ans.id)} className='toggle-comments'>View Less</button>
-                                        </>
+                                    {ans.comments && ans.comments.length > 0 ? (
+                                        ans.comments.map((comment) => (
+                                            <div className='comment-card' key={comment.id}>
+                                                <div className='comment-header'>
+                                                    <Avatar backgroundColor="green" px='8px' py='4px' borderRadius="4px">
+                                                        {comment.lastName ? comment.lastName.charAt(0) : 'U'}
+                                                    </Avatar>
+                                                     <div className='comment-meta'>
+                                                        <span className='comment-name'>{comment.firstName || 'Anonymous'}</span> 
+                                                        <span className='comment-time'>commented {moment(comment.date).fromNow()}</span>
+                                                    </div>
+                                                </div>
+                                                <p className='comment-text'>{comment.content}</p>
+                                            </div>
+                                        ))
                                     ) : (
-                                        <>
-                                            {ans.comments.slice(0, 2).map((comment, index) => (
-                                                <p key={index}>
-                                                    <strong>{comment.firstName} {comment.lastName}: </strong>
-                                                    {comment.content}
-                                                </p>
-                                            ))}
-                                            {ans.comments.length > 2 && (
-                                                <button type="button" onClick={() => toggleComments(ans.id)} className='toggle-comments'>View More</button>
-                                            )}
-                                        </>
+                                        <p>No comments yet</p>
+                                    )}
+                                    {currentUser && (
+                                        <form onSubmit={(e) => handlePostComment(ans.id, e)}>
+                                            <textarea
+                                                value={commentMap[ans.id] || ''}
+                                                onChange={(e) => setCommentMap({ ...commentMap, [ans.id]: e.target.value })}
+                                                placeholder='Add a comment...'
+                                                className='comment-input'
+                                            />
+                                            <button type='submit' className='post-comment-button'>
+                                                Post Comment
+                                            </button>
+                                        </form>
                                     )}
                                 </div>
                             )}
-                            <div className='comment-form'>
-                                <form onSubmit={(e) => handlePostComment(ans.id, e)}>
-                                    <input
-                                        type="text"
-                                        placeholder="Add a comment"
-                                        value={commentMap[ans.id] || ''}
-                                        onChange={(e) =>
-                                            setCommentMap((prevCommentMap) => ({
-                                                ...prevCommentMap,
-                                                [ans.id]: e.target.value,
-                                            }))
-                                        }
-                                    />
-                                    <button type="submit" className='submit-button'>Add Comment</button>
-                                </form>
-                            </div>
+
                         </div>
                     ))}
                 </section>
             )}
 
+
             <section className='post-answer-section'>
-                <h3>Your Answer</h3>
-                <form onSubmit={handlePostAns}>
-                    <textarea
-                        value={answer}
-                        onChange={(e) => setAnswer(e.target.value)}
-                        rows="10"
-                    />
-                    <button type='submit' className='submit-button'>Post Your Answer</button>
-                </form>
+                <h3>Post an Answer</h3>
+                {currentUser ? (
+                    <form onSubmit={handlePostAns} className='answer-form'>
+                        <textarea
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                            placeholder='Type your answer here...'
+                            className='answer-input'
+                        />
+                        <button type='submit' className='post-answer-button'>
+                            Post Answer
+                        </button>
+                    </form>
+                ) : (
+                    <p>Please <Link to='/login'>login</Link> to post an answer.</p>
+                )}
             </section>
         </div>
     );

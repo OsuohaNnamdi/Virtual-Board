@@ -16,4 +16,8 @@ public interface CommitService {
     Comment updateComment(Long id , Comment request) throws GeneralException;
 
     void deleteById (Long id) throws GeneralException;
+
+    List<Comment> getAllComment();
+
+    void deleteAll();
 }

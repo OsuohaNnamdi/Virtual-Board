@@ -2,6 +2,9 @@ package com.Lagos.State.University.Virtual.Notice.Board.Entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "comment")
 public class Comment {
@@ -26,14 +29,17 @@ public class Comment {
 
     private String lastName;
 
+    private LocalDateTime date;
     public Comment() {
     }
 
-    public Comment(Long answerid, String content, String firstName, String lastName) {
-        this.answerId = answerid;
+    public Comment(Long id, Long answerId, String content, String firstName, String lastName, LocalDateTime date) {
+        this.id = id;
+        this.answerId = answerId;
         this.content = content;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.date = date;
     }
 
     public Long getAnswerId() {
@@ -69,4 +75,11 @@ public class Comment {
         this.lastName = lastName;
     }
 
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 }

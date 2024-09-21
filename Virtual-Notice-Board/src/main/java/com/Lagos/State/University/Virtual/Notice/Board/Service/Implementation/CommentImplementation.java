@@ -8,6 +8,8 @@ import com.Lagos.State.University.Virtual.Notice.Board.Repository.CommentReposit
 import com.Lagos.State.University.Virtual.Notice.Board.Service.CommitService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -34,8 +36,9 @@ public class CommentImplementation implements CommitService{
 
             comment.setContent(request.getContent());
             comment.setAnswerId(request.getAnswerId());
-            comment.setFirstName(answer.getFirstName());
-            comment.setLastName(answer.getLastName());
+            comment.setFirstName(request.getFirstName());
+            comment.setLastName(request.getLastName());
+            comment.setDate(LocalDateTime.now());
 
             return commentRepository.save(comment);
         }
@@ -68,5 +71,15 @@ public class CommentImplementation implements CommitService{
     public void deleteById(Long id) throws GeneralException {
 
         commentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Comment> getAllComment() {
+        return commentRepository.findAll();
+    }
+
+    @Override
+    public void deleteAll() {
+        commentRepository.deleteAll();
     }
 }

@@ -92,5 +92,10 @@ public class ProfileImplementation implements ProfileService {
         }
     }
 
+    @Override
+    public void deleteById(Long id) {
+        profileRepository.deleteById(id);
+    }
+
 
 }
