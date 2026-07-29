@@ -42,7 +42,7 @@ const AddDashboard = () => {
     const handleImageChange = (e) => {
         setImage(e.target.files[0]); // Update image state with selected file
     };
-
+ 
     const handleSubmit = async (e) => {
         e.preventDefault();
 

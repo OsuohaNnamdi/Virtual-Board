@@ -17,6 +17,7 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping(path = "/api/v1/dashboard")
+@CrossOrigin(origins = "*")
 public class GeneralController {
 
 
@@ -68,7 +69,7 @@ public class GeneralController {
 
         @PostMapping("/add")
         public ResponseEntity<Dashboard> createNotice(@ModelAttribute Dashboard request,
-                                                         @RequestPart("document") MultipartFile document) {
+                                                      @RequestPart("document") MultipartFile document) {
             try {
                 generalImplementation.createNotice(request , document);
                 return ResponseEntity.ok().build();

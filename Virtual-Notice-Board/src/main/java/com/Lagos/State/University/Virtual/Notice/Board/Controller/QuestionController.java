@@ -2,7 +2,8 @@ package com.Lagos.State.University.Virtual.Notice.Board.Controller;
 
  import com.Lagos.State.University.Virtual.Notice.Board.Entity.Question;
 import com.Lagos.State.University.Virtual.Notice.Board.Service.Implementation.QuestionImplementation;
-import org.springframework.http.ResponseEntity;
+ import io.swagger.v3.oas.annotations.tags.Tag;
+ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/v1/question")
+@Tag(name = "Question API", description = "Operations related to Question")
 public class QuestionController {
 
     private final QuestionImplementation questionImplementation;

@@ -16,7 +16,7 @@ const Login = () => {
         setLoading(true);  // Show spinner
 
         try {
-            const response = await axios.post('https://virtual-notice-board-api.onrender.com/api/v1/login', {
+            const response = await axios.post('http://localhost:8080/api/v1/login', {
                 matricNumber,
                 password
             });
