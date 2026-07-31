@@ -32,12 +32,12 @@ public class VirtualNoticeBoardApplication {
 			admin.setVerified(true);
 			admin.setFaculty("Faculty of Science");
 			admin.setDepartment("Department of Computer Science");
-			admin.setMatricNumber("test1");
+			admin.setEmail("test1@lasu.edu.ng");
 			admin.setType(AccountType.STUDENT);
 			admin.setPassword(passwordEncoder.encode("12345"));
 
 
-			Optional<Profile> response = profileRepository.findByMatricNumber(admin.getMatricNumber());
+			Optional<Profile> response = profileRepository.findByEmail(admin.getEmail());
 
 			if (response.isPresent()){
 				return;

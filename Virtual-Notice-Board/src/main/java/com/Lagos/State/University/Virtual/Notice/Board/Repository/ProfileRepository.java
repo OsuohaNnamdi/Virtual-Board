@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface ProfileRepository extends JpaRepository<Profile , Long> {
 
 
-    Optional<Profile> findByMatricNumber(String matricNumber);
+    Optional<Profile> findByEmail(String email);
 }

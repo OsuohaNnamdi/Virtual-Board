@@ -35,16 +35,16 @@ public class Question {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
 
-    private String matricNo;
+    private String email;
 
 
 
-    public Question(Long id, String title, String content, Profile profile, String matricNo) {
+    public Question(Long id, String title, String content, Profile profile, String email) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.profile = profile;
-        this.matricNo = matricNo;
+        this.email = email;
         this.createdDate = LocalDateTime.now();
     }
 
@@ -83,12 +83,12 @@ public class Question {
         this.profile = profile;
     }
 
-    public String getMatricNo() {
-        return matricNo;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMatricNo(String matricNo) {
-        this.matricNo = matricNo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public LocalDateTime getCreatedDate() {

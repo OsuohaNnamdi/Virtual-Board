@@ -10,7 +10,7 @@ public record ProfileDTO(
         String set,
         String faculty,
         String department,
-        String matricNumber,
+        String email,
         Boolean isVerified,
         AccountType Type
         

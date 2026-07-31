@@ -18,7 +18,7 @@ public class ProfileDetail implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return profileRepository.findByMatricNumber(username)
+        return profileRepository.findByEmail(username)
                 .orElseThrow(()-> new ProfileException("Student With Username "+username+" Not Found"));
     }
 }

@@ -30,7 +30,7 @@ public class QuestionImplementation implements QuestionService {
     @Override
     public Question createQuestion(Question request) throws GeneralException {
 
-        Optional<Profile> profile = profileRepository.findByMatricNumber(request.getMatricNo());
+        Optional<Profile> profile = profileRepository.findByEmail(request.getEmail());
 
         if (profile.isPresent()) {
             Question question = new Question();
@@ -40,7 +40,7 @@ public class QuestionImplementation implements QuestionService {
             question.setContent(request.getContent());
             question.setProfile(profile.get());
             question.setCreatedDate(LocalDateTime.now());
-            question.setMatricNo(request.getMatricNo());
+            question.setEmail(request.getEmail());
 
 
          return questionRepository.save(question);

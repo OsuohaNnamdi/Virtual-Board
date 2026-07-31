@@ -29,20 +29,20 @@ public class Profile implements UserDetails {
     private String set;
     private String faculty;
     private String department;
-    private String matricNumber;
+    private String email;
     private String password;
     private boolean isVerified;
     @Enumerated(EnumType.STRING)
     private AccountType type;
 
-    public Profile(Long id, String firstName, String lastName, String set, String faculty, String department, String matricNumber, String password, boolean isVerified, AccountType type) {
+    public Profile(Long id, String firstName, String lastName, String set, String faculty, String department, String email, String password, boolean isVerified, AccountType type) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.set = set;
         this.faculty = faculty;
         this.department = department;
-        this.matricNumber = matricNumber;
+        this.email = email;
         this.password = password;
         this.isVerified = isVerified;
         this.type = type;
@@ -83,12 +83,12 @@ public class Profile implements UserDetails {
         this.firstName = firstName;
     }
 
-    public String getMatricNumber() {
-        return matricNumber;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMatricNumber(String matricNumber) {
-        this.matricNumber = matricNumber;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setPassword(String password) {
@@ -139,7 +139,7 @@ public class Profile implements UserDetails {
 
     @Override
     public String getUsername() {
-        return matricNumber;
+        return email;
     }
 
     @Override

@@ -43,7 +43,7 @@ public class ProfileImplementation implements ProfileService {
 
 
 
-        Optional<Profile> response = profileRepository.findByMatricNumber(request.getMatricNumber());
+        Optional<Profile> response = profileRepository.findByEmail(request.getEmail());
 
         if (response.isPresent()){
             throw new ProfileException("Student Exist");
@@ -51,11 +51,10 @@ public class ProfileImplementation implements ProfileService {
         else {
             Profile profile = new Profile();
 
-            profile.setMatricNumber(request.getMatricNumber());
+            profile.setEmail(request.getEmail());
             profile.setFirstName(request.getFirstName());
             profile.setLastName(request.getLastName());
             profile.setPassword(passwordEncoder.encode(request.getPassword()));
-            profile.setMatricNumber(request.getMatricNumber());
             profile.setFaculty(request.getFaculty());
             profile.setDepartment(request.getDepartment());
             profile.setSet(request.getSet());
@@ -76,14 +75,14 @@ public class ProfileImplementation implements ProfileService {
     public LoginResponse login(LoginRequest request) throws ProfileException {
         try{
             Authentication authentication = authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
-                    request.matricNumber(),
+                    request.email(),
                     request.password()
             ));
             Profile principal = (Profile) authentication.getPrincipal();
 
             ProfileDTO profileDTO = profileMapper.apply(principal);
 
-            String token = jwt.issuedToken(profileDTO.matricNumber(), "Student");
+            String token = jwt.issuedToken(profileDTO.email(), "Student");
 
             return new LoginResponse(profileDTO , token);
         }catch (AuthenticationException e) {

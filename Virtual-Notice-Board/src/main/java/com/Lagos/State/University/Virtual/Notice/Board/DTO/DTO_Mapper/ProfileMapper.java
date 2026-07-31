@@ -16,7 +16,7 @@ public class ProfileMapper implements Function <Profile , ProfileDTO>{
                 profile.getSet(),
                 profile.getFaculty(),
                 profile.getDepartment(),
-                profile.getMatricNumber(),
+                profile.getEmail(),
                 profile.getVerified(),
                 profile.getType()
         );
